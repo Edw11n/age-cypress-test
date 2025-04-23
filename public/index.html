@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Formulario de Edad</title>
+  <title>Document</title>
 </head>
 <body>
-  <h1>Calcula tu edad</h1>
+  <h1>Calcular edad</h1>
   <form id="form-edad">
     <label>Nombre: <input type="text" name="nombre" required></label><br>
     <label>Apellido: <input type="text" name="apellido" required></label><br>
@@ -23,27 +23,27 @@
   <div id="resultado-js" style="margin-top:20px;"></div>
 
   <script>
-    document.getElementById('form-edad').addEventListener('submit', async e => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        nombre: form.nombre.value,
-        apellido: form.apellido.value,
-        sexo: form.sexo.value,
-        fecha: form.fecha.value
-      };
-      const resp = await fetch('/calcular', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(data)
+      document.getElementById('form-edad').addEventListener('submit', async e => {
+        e.preventDefault();
+          const form = e.target;
+          const data = {
+            nombre: form.nombre.value,
+            apellido: form.apellido.value,
+            sexo: form.sexo.value,
+            fecha: form.fecha.value
+          };
+          const resp = await fetch('/calcular', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+          });
+          const json = await resp.json();
+          const { nombre, apellido, sexo, edad } = json;
+          document.getElementById('resultado-js').innerHTML =
+          `<p>Nombre: ${nombre} ${apellido}</p>
+          <p>Sexo: ${sexo}</p>
+          <p>Edad: ${edad.años} años, ${edad.meses} meses y ${edad.dias} días</p>`;
       });
-      const json = await resp.json();
-      const { nombre, apellido, sexo, edad } = json;
-      document.getElementById('resultado-js').innerHTML =
-        `<p>Nombre: ${nombre} ${apellido}</p>
-         <p>Sexo: ${sexo}</p>
-         <p>Edad: ${edad.años} años, ${edad.meses} meses y ${edad.dias} días</p>`;
-    });
   </script>
 </body>
 </html>
