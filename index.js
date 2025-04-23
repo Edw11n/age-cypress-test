@@ -11,4 +11,4 @@ app.use(express.json());
 app.use('/', formRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Server en puerto http://localhost:${PORT}`));
